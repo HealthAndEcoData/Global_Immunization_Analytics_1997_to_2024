@@ -1,4 +1,5 @@
 Global Immunization Analytics Dashboard (1997–2024)
+
 📊 Project Overview
 An end-to-end Power BI business intelligence solution engineered to track, model, and visualize global vaccination coverage data across nearly three decades. This project transforms raw public health data into an interactive executive tracking system, demonstrating advanced data modeling (Star Schema), ETL optimization, and mobile-responsive design.
 
