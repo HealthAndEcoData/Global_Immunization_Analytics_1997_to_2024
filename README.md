@@ -1,52 +1,78 @@
-# Global Immunization Analytics Dashboard (1997 - 2024)
+Global Immunization Analytics Dashboard (1997–2024)
+📊 Project Overview
+An end-to-end Power BI business intelligence solution engineered to track, model, and visualize global vaccination coverage data across nearly three decades. This project transforms raw public health data into an interactive executive tracking system, demonstrating advanced data modeling (Star Schema), ETL optimization, and mobile-responsive design.
 
-## 📊 Project Overview
-An interactive, end-to-end Power BI business intelligence solution designed to track, model, and visualize global vaccination coverage and historical trends across nearly three decades. This project demonstrates advanced data transformation, strict schema design, and responsive layouts tailored for both desktop and mobile stakeholders.
+📈 Executive KPI Baselines
+Global Average Coverage: ~87.5% (Calculated via optimized average aggregations)
 
-### 📈 Core Project Baseline Metrics
-* **Global Average Coverage:** ~87.5% (Calculated via Average aggregation)
-* **Vaccines Tracked:** 16 unique vaccines (Distinct count optimized to correctly capture multi-dose series including `Ipv1`, `Ipv2`, and `pol3`)
-* **Global Scope:** 195 unique countries monitored
+Vaccines Tracked: 16 unique vaccines (Accurately capturing multi-dose series including Ipv1, Ipv2, and pol3 via distinct counts)
 
----
+Global Scope: 195 unique countries monitored
 
-## 🚀 Live Visuals & Interface
-### Desktop Analytics Experience
-*Built on a professional 16:9 widescreen layout featuring a dark blue corporate header banner, a 3-card KPI control panel, dynamic World Map tracking, a historical Line Chart for trend analysis, and a Clustered Bar Chart for country rankings.*
+🛠️ Data Architecture & Modeling
+A key focus of this project was moving away from a flat-file structure to implement an optimized, high-performance Star Schema. This ensures rapid query performance and clean DAX calculations.
 
-![Main Dashboard](Global_Immunization_Analytics_Dashboard_\(1997_–_2024\).jpg)
+                  ┌───────────────┐
+                  │  Dim_Country  │
+                  └───────┬───────┘
+                          │ 1
+                          │
+                          │ *
+┌───────────────┐   * ┌───┴────────────┐ * ┌─────────────────┐
+│  Dim_Vaccine  ├───══► Fact_Vaccination ◄══─┤    Dim_Date     │
+└───────────────┘ 1   └────────────────┘   1 └─────────────────┘
+Centralized Fact Table: Fact_Vaccination captures granular, yearly coverage metrics.
 
-### Deep-Dive Interactive Analysis
-*Features a dedicated Vaccine Dropdown Slicer (with blank values programmatically filtered out via Basic Filtering) and a Year Slider for granular, state-level cross-highlighting.*
+Dimension Tables: Connected via 1:N (one-to-many) relationships to Dim_Country and Dim_Vaccine lookup tables.
 
-![Interactive State Analysis](Global_Immunization_Interactive_State.jpg)
+Data Integrity via Power Query (M): Cleaned complex multi-dose naming conventions, handled missing data, and filtered out blank entries to guarantee reporting accuracy.
 
----
+⚙️ Tech Stack & Advanced Skills
+Power BI Desktop: Star schema architecture, advanced DAX measures, and cross-filtering optimization.
 
-## 📱 Mobile-First Optimization
-To support executives and field stakeholders on the move, this solution includes a fully configured mobile responsive layout. All 10 native page elements have been refactored into a clean, single-column vertical scrolling experience.
+Power Query (M): ETL pipeline architecture, schema normalization, and data type validation.
 
-![Mobile Responsive Layout](Global_Immunization_Mobile_Layout.jpg)
+UI/UX & Responsive Design: Corporate color theory, 16:9 widescreen layout, and mobile-first refactoring.
 
----
+🔢 Core DAX Measures & Calculations
+To ensure performance optimization and precise aggregations across the star schema, explicit DAX measures were constructed rather than relying on implicit/default fields.
 
-## 🛠️ Data Modeling & Architecture
-The backbone of this portfolio project relies on an optimized relational schema engineered for rapid query performance.
+1. Global Average Coverage
+Calculates the historical baseline anchor across global performance cards.
 
-* **Star Schema Implementation:** Features a centralized `Fact_Vaccination` table seamlessly linked to a `Dim_Country` dimension and dedicated Vaccine lookup tables.
-* **Data Integrity:** Transformed using Power Query (M) to handle complex, split-dose entries and eliminate data fragmentation.
+Code snippet
+Global Average Coverage = 
+AVERAGE( 'Fact_Vaccination'[Coverage_Percentage] )
+2. Unique Vaccines Tracked
+Optimized distinct count logic to accurately capture multi-dose series variations (e.g., Ipv1, Ipv2, and pol3) across the dimension lookup.
 
-![Data Model Schema](Global_Immunization_Data_Modelling.jpg)
+Code snippet
+Vaccines Tracked = 
+DISTINCTCOUNT( 'Dim_Vaccine'[Vaccine_Name] )
+3. Monitored Countries
+Dynamically evaluates the active scope of geographic regions represented in the current context.
 
----
+Code snippet
+Countries Monitored = 
+DISTINCTCOUNT( 'Dim_Country'[Country_Name] )
+🚀 Desktop Analytics Experience
+The desktop interface is built on a professional 16:9 widescreen layout featuring a dark blue corporate header banner and an intuitive analytical flow:
 
-## ⚙️ Tech Stack & Skills Demonstrated
-* **Power BI Desktop:** Advanced DAX measures, KPI card generation, basic filtering logic, and custom page layouts.
-* **Power Query (M):** ETL pipeline architecture, schema normalization, and row-level filtering.
-* **UI/UX Design:** Corporate color theory application, responsive design principles, and native mobile optimization.
+3-Card KPI Control Panel: Instant high-level macro metrics.
 
----
+Dynamic Geographic Tracking: A World Map for spatial distribution analysis.
 
-### 📂 Repository Contents
-* `Global Immunization and Vaccine Tracking 1997 to 2024.pbix` — Full interactive Power BI Desktop file.
-* `wuenic_input_to_pdf.xlsx` — Raw data source file utilized for ingestion and transformation.
+Trend & Ranking Analysis: A historical Line Chart paired with a Clustered Bar Chart to identify top and bottom-performing nations.
+
+Deep-Dive Interactive Analysis
+Includes a dedicated Vaccine Dropdown Slicer (with blank values programmatically removed via Basic Filtering) and a Year Slider for granular, state-level cross-highlighting.
+
+📱 Executive Mobile-First Optimization
+To support field stakeholders and executives on the move, the entire dashboard was refactored for mobile devices. All 10 native page elements were reorganized into a clean, single-column vertical scrolling experience that retains full interactive capabilities without layout distortion.
+
+📂 Repository Structure
+Global Immunization and Vaccine Tracking 1997 to 2024.pbix — Complete interactive Power BI report file.
+
+wuenic_input_to_pdf.xlsx — Raw data source file used for ingestion and transformation.
+
+/.jpg assets — Includes 4 high-resolution interface screenshots (Desktop, Interactive Analysis, Mobile Layout, and Data Model Schema) utilized for documentation.
